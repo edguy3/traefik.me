@@ -63,4 +63,4 @@ traefikme-traefik-1                     | time="2023-10-05T21:21:57Z" level=erro
 
 Original version: Michael Pyrou
 
-Ed Guy, edguy@eguy.org adapted gist into repo
+Ed Guy, edguy@eguy.org adapted gist into repo. (Really only made a few changes.)
