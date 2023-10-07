@@ -8,7 +8,7 @@ services:
       - "443:443"
     labels:
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
-      - "traefik.http.routers.traefik.rule=Host(traefik.traefik.me)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.traefik.me`)"
       - "traefik.http.routers.traefik-tls.tls.domains[0].main=traefik.traefik.me"
       - "traefik.http.routers.traefik-tls.tls.domains[0].sans=traefik-*.traefik.me"
     volumes:
@@ -36,6 +36,8 @@ services:
       && wget traefik.me/privkey.pem -O privkey.pem"
     volumes:
       - certs:/etc/ssl/traefik
+    profiles:
+      - donotstart
 
 volumes:
   certs:

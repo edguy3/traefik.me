@@ -16,17 +16,16 @@ Clone the repository:
     git clone git@github.com:edguy3/traefik.me.git
 ```
 
-Start up to start the service and get the certificates.
+Start up to start the service and get the certificates. When that finishes, start the containers.
 ```
-    docker-compose up -d && docker-compose logs -f
+    docker compose up reverse-proxy-https-helper && docker compose up -d && docker-compose logs -f
+```
+Or, utilize the Makefile.
+```
+    make up
 ```
 
-The process will likely fail the first time as the certificates were not available, so control-c and restart it.
-```
-    docker-compose down && docker-compose up -d && docker-compose logs -f
-```
-
-
+To test:
 1. Open https://app1.traefik.me/ in your browser.
 2. Then open http://app1.traefik.me/ and
 3. https://traefik.traefik.me to confirm both app instances are reachable.
@@ -49,15 +48,6 @@ file.  ( or the `docker-compose.override.yml`  file.)
       - "traefik.http.routers.app1.rule=Host(`amazing.traefik.me`)"
 ```
 The my_local_app service is now exposed at https://amazing.traefik.me .
-
-
-## Notes
-The log will show an error like this one, haven't figured out how to silence it.
-
-```
-traefikme-traefik-1                     | time="2023-10-05T21:21:57Z" level=error msg="error while parsing rule Host(traefik.traefik.me): traefik.traefik.me is not defined" entryPointName=traefik routerName=traefik@docker
-```
-
 
 ## Author
 
