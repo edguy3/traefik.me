@@ -2,7 +2,7 @@ version: '3'
 services:
   traefik:
     restart: unless-stopped
-    image: traefik:v2.0.2
+    image: traefik:v2.10.5
     ports:
       - "80:80"
       - "443:443"
@@ -16,18 +16,26 @@ services:
       - ./tls.yml:/etc/traefik/tls.yml
       - /var/run/docker.sock:/var/run/docker.sock
       - certs:/etc/ssl/traefik
+    networks:
+      - traefik
+
   app1:
     image: traefik/whoami
     labels:
+      # - "traefik.http.routers.<UNIQUE ROUTER NAME, hint: user service name>.rule=Host(`app1.traefik.me`)"
       - "traefik.http.routers.app1.rule=Host(`app1.traefik.me`)"
       - "traefik.http.routers.app1-tls.tls.domains[0].main=app1.traefik.me"
       - "traefik.http.routers.app1-tls.tls.domains[0].sans=app1-*.traefik.me"
+    networks:
+      - traefik
   app2:
     image: traefik/whoami
     labels:
       - "traefik.http.routers.app2.rule=Host(`app2.traefik.me`)"
       - "traefik.http.routers.app2-tls.tls.domains[0].main=app2.traefik.me"
       - "traefik.http.routers.app2-tls.tls.domains[0].sans=app2-*.traefik.me"
+    networks:
+      - traefik
 
   reverse-proxy-https-helper:
     image: alpine
@@ -41,3 +49,9 @@ services:
 
 volumes:
   certs:
+
+# define external (shared) network so other container sets may connnect.
+networks:
+  traefik:
+    external: false
+    name: traefik

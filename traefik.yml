@@ -1,4 +1,5 @@
-logLevel: INFO
+log:
+  level: INFO
 
 api:
   insecure: true
@@ -9,6 +10,8 @@ entryPoints:
     address: ":80"
   https:
     address: ":443"
+
+accessLog: {}
 
 providers:
   file:

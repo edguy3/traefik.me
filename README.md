@@ -9,6 +9,8 @@ The files were taken from his Gist at https://gist.github.com/pyrou/4f555cd55677
 
 Once running, you can connect to the dashboard at https://traefik.traefik.me/dashboard/#/
 
+Posted this solution to https://www.reddit.com/r/selfhosted/comments/170lf0c/home_self_hosting_ssl_certificates/
+
 ## Deploying
 
 Clone the repository:
